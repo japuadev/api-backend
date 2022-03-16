@@ -1,6 +1,9 @@
 # compiled output
 /node_modules
 
+#ARQ
+utils.txt
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json

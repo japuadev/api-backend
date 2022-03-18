@@ -1,16 +1,6 @@
 const mongoose = require('mongoose')
 
 const PatientSchema = new mongoose.Schema({
-    _id: {
-        type: Schema.Types.ObjectId,
-        default: true,
-        unique: [true, 'O campo de _id deve ser único.'],
-    },
-    number: {
-        type: Number,
-        index: {unique: true},
-        comment: 'Número sequencial do paciente.',
-    },
     active: {
         type: Boolean,
         default: true,
@@ -33,15 +23,16 @@ const PatientSchema = new mongoose.Schema({
                 'Tec. Completo',
                 'Sup. Incompleto',
                 'Sup. Completo',
+                'Não se aplica', 
             ],
             message: '{VALUE} não é suportado.',
         },
         comment: 'Escolaridade.',
     },
     monthly_income: {
-        type: Number,
+        type: String,
         enum: {
-            values: ['1', '1-3', '4+'],
+            values: ['-1', '1', '2', '4+'],
             message: '{VALUE} não é suportado.',
         },
         comment: 'Renda Mensal.',
@@ -86,8 +77,9 @@ const PatientSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
+        required: [true, 'O campo de gênero deve ser preenchido.'],
         enum: {
-            values: ['Masculino', 'Feminino', 'Não-Binário', 'Homem-Trans', 'Mulher Trans', 'Outro'],
+            values: ['Masculino', 'Feminino', 'Não-Binário', 'Homem Trans', 'Mulher Trans', 'Outro'],
             message: '{VALUE} não é suportado.',
         },
     },
@@ -99,6 +91,7 @@ const PatientSchema = new mongoose.Schema({
     },
     sus_card: {
         type: String,
+        unique: [true, 'Cartão do SUS já cadastrado.'],
         comment: 'Número do Cartão do Sus.',
     },
     type_blood: {
@@ -147,6 +140,7 @@ const PatientSchema = new mongoose.Schema({
     },
     marital_status: {
         type: String,
+        required: [true, 'O Estado Cívil deve ser preenchido.'],
         enum: {
             values: ['Solteiro', 'Casado', 'Separado', 'Viúvo'],
             message: '{VALUE} não é suportado.',
@@ -160,16 +154,12 @@ const PatientSchema = new mongoose.Schema({
     },
     created_at: {
         type: Date,
-        timestamps: {
-            createdAt: 'Criado em',
-        },
+        default: Date.now,
         comment: 'Data de criação do Cadastro.',
     },
     update_at: {
         type: Date,
-        timestamps: {
-            updateAt: 'Atualizado em',
-        },
+        default: Date.now(),
         comment: 'Data da última atualização do Cadastro.',
     },
     date_inative: {
@@ -182,10 +172,10 @@ const PatientSchema = new mongoose.Schema({
     },
     disabled: {
         type: Boolean,
-        default: [false],
+        default: false,
         comment: 'Campo para confirmar se paciente está desativado.',
     },
-    program: {
+    program_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'program',
         comment: 'Programas que o paciente está inserido.',

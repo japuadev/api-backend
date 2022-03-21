@@ -1,21 +1,21 @@
-const Patient = require('../models/patient')
+const users = require('../models/users')
 const {cpfIsValid} = require('../utils/common')
 
 module.exports = {
     async create(req, res) {
         try {
             const body = req.body
-            let patientCpf = body.physic_national
+            let usersCpf = body.physic_national
 
-            if (patientCpf) {
-                if (!cpfIsValid(patientCpf)) {
+            if (usersCpf) {
+                if (!cpfIsValid(usersCpf)) {
                     let response = {message: 'Número de CPF inválido.'}
                     return res.status(400).send(response)
                 }
-            }
 
-            const patient = await Patient.create(body)
-            return res.status(201).json(patient)
+                const users = await users.create(body)
+                return res.status(201).json(users)
+            }
         } catch (error) {
             return res.status(500).json({
                 error: {
@@ -29,9 +29,9 @@ module.exports = {
         try {
             const {id} = req.params
             const body = req.body
-            const patient = await Patient.findByIdAndUpdate(id, body, {new: true})
-            if (patient) {
-                return res.status(200).json(patient)
+            const users = await users.findByIdAndUpdate(id, body, {new: true})
+            if (users) {
+                return res.status(200).json(users)
             } else {
                 return res.status(404).json({
                     error: {
@@ -52,8 +52,8 @@ module.exports = {
     async delete(req, res) {
         try {
             const {id} = req.params
-            const patient = await Patient.findByIdAndDelete(id)
-            if (patient) {
+            const users = await users.findByIdAndDelete(id)
+            if (users) {
                 return res.status(204).json({})
             } else {
                 return res.status(404).json({
@@ -75,9 +75,9 @@ module.exports = {
     async getById(req, res) {
         try {
             const {id} = req.params
-            const patient = await Patient.findById(id)
-            if (patient) {
-                return res.status(200).json(patient)
+            const users = await users.findById(id)
+            if (users) {
+                return res.status(200).json(users)
             } else {
                 return res.status(404).json({
                     error: {

@@ -4,6 +4,7 @@
 #ARQ
 utils.txt
 test.js 
+counter
 
 # IDE - VSCode
 .vscode/*

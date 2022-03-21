@@ -1,16 +1,6 @@
 const mongoose = require('mongoose')
 
 const ProgramSchema = new mongoose.Schema({
-    _id: {
-        type: Schema.Types.ObjectId,
-        default: [true],
-        unique: [true],
-    },
-    number: {
-        type: Number,
-        index: {unique: true},
-        comment: 'Número sequencial do programa.',
-    },
     active: {
         type: Boolean,
         default: true,
@@ -38,16 +28,12 @@ const ProgramSchema = new mongoose.Schema({
     },
     created_at: {
         type: Date,
-        timestamps: {
-            createdAt: 'Criado em',
-        },
+        default: Date.now,
         comment: 'Data de criação do Programa.',
     },
     update_at: {
         type: Date,
-        timestamps: {
-            updateAt: 'Atualizado em',
-        },
+        default: Date.now,
         comment: 'Data da última atualização do Programa.',
     },
     date_inative: {
@@ -56,7 +42,7 @@ const ProgramSchema = new mongoose.Schema({
     },
     disabled: {
         type: Boolean,
-        default: [false],
+        default: false,
         comment: 'Campo para confirmar se Programa está desativado.',
     },
 })

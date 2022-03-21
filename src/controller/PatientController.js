@@ -1,11 +1,22 @@
 const Patient = require('../models/patient')
+const { cpfIsValid } = require('../utils/common')
 
 module.exports = {
     async create(req, res) {
         try {
             const body = req.body
+            let patientCpf = body.physic_national
+            
+            if (patientCpf) {
+                if (!cpfIsValid(patientCpf)) {
+                  let response = { message: "Número de CPF inválido." }
+                  return res.status(400).send(response)
+                }
+            }
+            
             const patient = await Patient.create(body)
-            return re.status(201).json(patient)
+            return res.status(201).json(patient)
+
         } catch (error) {
             return res.status(500).json({
                 error: {

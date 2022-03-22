@@ -24,11 +24,6 @@ const UsersSchema = new mongoose.Schema({
         unique: [true, 'Esse e-mail já está cadastrado.'],
         comment: 'Campo de e-mail do usuário.',
     },
-    firt_acess: {
-        type: Boolean,
-        default: true,
-        comment: 'Campo de primeiro acesso do usuário',
-    },
     password: {
         type: String,
         required: [true, 'O campo da senha deve ser preenchido.'],

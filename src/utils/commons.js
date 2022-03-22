@@ -1,3 +1,26 @@
+function setEmptyToNull(obj) {
+    if (obj) {
+        Object.keys(obj).forEach((key) => {
+            if (obj[key] != null) {
+                if (Array.isArray(obj[key])) {
+                    obj[key].map((o) => {
+                        if (typeof o === 'object') {
+                            setEmptyToNull(o)
+                        }
+                    })
+                } else if (typeof obj[key] === 'string') {
+                    if (obj[key].trim() === '') {
+                        obj[key] = null
+                    }
+                } else if (typeof obj[key] === 'object') {
+                    setEmptyToNull(obj[key])
+                }
+            }
+        })
+    }
+    return obj
+}
+
 function cpfIsValid(strCPF) {
     cpfWithoutSpecialCharacters = strCPF.replace(/[.-]/g, '')
 
@@ -43,6 +66,7 @@ function validateErrorNotNull(error) {
 }
 
 module.exports = {
+    setEmptyToNull,
     cpfIsValid,
     validateErrorNotNull,
 }

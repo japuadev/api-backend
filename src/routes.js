@@ -4,6 +4,7 @@ const PatientController = require('./controller/PatientController')
 const ProgramController = require('./controller/ProgramController')
 const UsersController = require('./controller/UsersController')
 const AuthController = require('./controller/AuthController')
+const Auth = require('./middlewares/auth')
 const routes = Router()
 
 //Rotas de Paciente

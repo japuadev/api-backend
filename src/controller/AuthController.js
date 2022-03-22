@@ -6,7 +6,7 @@ module.exports = {
     async login(req, res) {
         try {
             const body = req.body
-            const filter = {physic_national: sanitize(body.physic_national), password: sanitize(body.password)}
+            const filter = {email: sanitize(body.email), password: sanitize(body.password)}
             const user = await users.findOne(filter)
             if (user) {
                 const result = {

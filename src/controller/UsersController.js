@@ -1,20 +1,32 @@
-const users = require('../models/users')
-const {cpfIsValid} = require('../utils/common')
+const Users = require('../models/users')
+const validator = require('email-validator')
+const {cpfIsValid} = require('../utils/commons')
 
 module.exports = {
     async create(req, res) {
         try {
-            const body = req.body
+            let body = setEmptyToNull(req.body)
             let usersCpf = body.physic_national
 
-            if (usersCpf) {
-                if (!cpfIsValid(usersCpf)) {
-                    let response = {message: 'Número de CPF inválido.'}
-                    return res.status(400).send(response)
+            if (body.email) {
+                validator.validate('test@email.com')
+                validator.validate('test@email.com.br')
+                if (usersCpf) {
+                    if (!cpfIsValid(usersCpf)) {
+                        let response = {message: 'Número de CPF inválido.'}
+                        return res.status(400).send(response)
+                    }
                 }
 
-                const users = await users.create(body)
+                const users = await Users.create(body)
                 return res.status(201).json(users)
+            } else {
+                return res.status(401).json({
+                    error: {
+                        message: 'E-mail inválido.',
+                        error: error.message,
+                    },
+                })
             }
         } catch (error) {
             return res.status(500).json({
@@ -29,7 +41,7 @@ module.exports = {
         try {
             const {id} = req.params
             const body = req.body
-            const users = await users.findByIdAndUpdate(id, body, {new: true})
+            const users = await Users.findByIdAndUpdate(id, body, {new: true})
             if (users) {
                 return res.status(200).json(users)
             } else {
@@ -52,7 +64,7 @@ module.exports = {
     async delete(req, res) {
         try {
             const {id} = req.params
-            const users = await users.findByIdAndDelete(id)
+            const users = await Users.findByIdAndDelete(id)
             if (users) {
                 return res.status(204).json({})
             } else {
@@ -75,7 +87,7 @@ module.exports = {
     async getById(req, res) {
         try {
             const {id} = req.params
-            const users = await users.findById(id)
+            const users = await Users.findById(id)
             if (users) {
                 return res.status(200).json(users)
             } else {

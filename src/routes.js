@@ -3,7 +3,7 @@ const {Router} = require('express')
 const PatientController = require('./controller/PatientController')
 const ProgramController = require('./controller/ProgramController')
 const UsersController = require('./controller/UsersController')
-const UsersController = require('./controller/UsersController')
+const AuthController = require('./controller/AuthController')
 const routes = Router()
 
 //Rotas de Paciente
@@ -23,5 +23,8 @@ routes.post('/users', UsersController.create)
 routes.get('/users/:id', UsersController.getById)
 routes.put('/users/:id', UsersController.update)
 routes.delete('/users/:id', UsersController.delete)
+
+//Rotas de Autenticação
+routes.post('/login', AuthController.login)
 
 module.exports = routes

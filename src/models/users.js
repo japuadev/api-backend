@@ -29,6 +29,11 @@ const UsersSchema = new mongoose.Schema({
         required: [true, 'O campo da senha deve ser preenchido.'],
         comment: 'Campo de senha do usuário.',
     },
+    company: {
+        type: String,
+        required: [true, 'O nome da Empresa deve ser preenchido.'],
+        comment: 'Nome da empresa que o usuário trabalha.',
+    },
     active: {
         type: Boolean,
         default: true,

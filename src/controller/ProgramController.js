@@ -15,12 +15,22 @@ module.exports = {
             })
         }
     },
+
     async update(req, res) {
         try {
             const {id} = req.params
             const body = req.body
             const program = await Program.findByIdAndUpdate(id, body, {new: true})
-            if (program) {
+
+            if (!program.body) {
+                return res.status(400).json({
+                    error: {
+                        message: 'Necessário passar os campos com as informações a serem atualizadas.',
+                    },
+                })
+            }
+
+            if (program.body) {
                 return res.status(200).json(program)
             } else {
                 return res.status(404).json({
@@ -39,6 +49,7 @@ module.exports = {
             })
         }
     },
+
     async delete(req, res) {
         try {
             const {id} = req.params
@@ -62,6 +73,7 @@ module.exports = {
             })
         }
     },
+
     async getById(req, res) {
         try {
             const {id} = req.params

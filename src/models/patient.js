@@ -129,7 +129,7 @@ const PatientSchema = new mongoose.Schema({
         type: String,
         required: [true, 'O Estado Cívil deve ser preenchido.'],
         enum: {
-            values: ['Solteiro', 'Casado', 'Separado', 'Viúvo'],
+            values: ['Solteiro', 'Casado', 'Divorciado', 'Viúvo'],
             message: '{VALUE} não é suportado.',
         },
         comment: 'Estado Cívil.',

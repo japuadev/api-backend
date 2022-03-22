@@ -2,8 +2,6 @@
 /node_modules
 
 #ARQ
-utils.txt
-test.js 
 counter
 .env 
 

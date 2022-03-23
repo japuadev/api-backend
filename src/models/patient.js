@@ -175,11 +175,12 @@ const PatientSchema = new mongoose.Schema({
         default: false,
         comment: 'Campo para confirmar se paciente está desativado.',
     },
-    program_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'program',
-        comment: 'Programas que o paciente está inserido.',
-    },
+    program_id: [
+        {
+            type: String,
+            comment: 'Programas que o paciente está inserido.',
+        }
+    ]
 })
 
 module.exports = mongoose.model('patient', PatientSchema)

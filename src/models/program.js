@@ -17,14 +17,12 @@ const ProgramSchema = new mongoose.Schema({
         required: [true, 'Deve ser adicionada uma descrição para o Programa.'],
         comment: 'Descrição do Programa.',
     },
-    age_group_initial: {
+    age_group: {
         type: Number,
+        min: 1,
+        max: 200,
         required: [true, 'O campo da Faixa Etária Inicial deve ser preenchido.'],
         comment: 'Campo de Faixa Etária Inicial do programa.',
-    },
-    age_group_final: {
-        type: Number,
-        default: 200,
     },
     created_at: {
         type: Date,

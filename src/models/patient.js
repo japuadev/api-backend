@@ -6,10 +6,6 @@ const PatientSchema = new mongoose.Schema({
         default: true,
         comment: 'Campo para saber se paciente está ativo.',
     },
-    student: {
-        type: Boolean,
-        comment: 'Campo para saber se paciente é estudante.',
-    },
     educational_attainment: {
         type: String,
         enum: {
@@ -23,7 +19,7 @@ const PatientSchema = new mongoose.Schema({
                 'Tec. Completo',
                 'Sup. Incompleto',
                 'Sup. Completo',
-                'Não se aplica', 
+                'Não se aplica',
             ],
             message: '{VALUE} não é suportado.',
         },
@@ -71,7 +67,7 @@ const PatientSchema = new mongoose.Schema({
         comment: 'Nome Social do paciente.',
     },
     birth_date: {
-        type: Date,
+        type: String,
         required: [true, 'O campo Data de Nascimento deve ser preenchido.'],
         comment: 'Data de Nascimento.',
     },
@@ -83,14 +79,9 @@ const PatientSchema = new mongoose.Schema({
             message: '{VALUE} não é suportado.',
         },
     },
-    pregnant: {
-        type: Boolean,
-        default: false,
-        required: [true, 'O campo de Gravidez deve ser preenchido.'],
-        comment: 'Gravidez.',
-    },
     sus_card: {
         type: String,
+        required: [true, 'O cartão do SUS deve ser preenchido.'],
         unique: [true, 'Cartão do SUS já cadastrado.'],
         comment: 'Número do Cartão do Sus.',
     },
@@ -105,10 +96,6 @@ const PatientSchema = new mongoose.Schema({
     organ_donor: {
         type: Boolean,
         comment: 'Campo para informar se paciente é Doador de Órgãos.',
-    },
-    profession: {
-        type: String,
-        comment: 'Profissão do paciente.',
     },
     dad_name: {
         type: String,
@@ -142,15 +129,10 @@ const PatientSchema = new mongoose.Schema({
         type: String,
         required: [true, 'O Estado Cívil deve ser preenchido.'],
         enum: {
-            values: ['Solteiro', 'Casado', 'Separado', 'Viúvo'],
+            values: ['Solteiro', 'Casado', 'Divorciado', 'Viúvo'],
             message: '{VALUE} não é suportado.',
         },
         comment: 'Estado Cívil.',
-    },
-    vip: {
-        type: Boolean,
-        default: false,
-        comment: 'Campo para saber se paciente é vip.',
     },
     created_at: {
         type: Date,
@@ -159,28 +141,19 @@ const PatientSchema = new mongoose.Schema({
     },
     update_at: {
         type: Date,
-        default: Date.now(),
+        default: Date.now,
         comment: 'Data da última atualização do Cadastro.',
-    },
-    date_inative: {
-        type: Date,
-        comment: 'Campo de data da inativação do cadastro.',
-    },
-    date_create_manual: {
-        type: Date,
-        comment: 'Data da criação do cadastro manualmente.',
     },
     disabled: {
         type: Boolean,
         default: false,
         comment: 'Campo para confirmar se paciente está desativado.',
     },
-    program_id: [
+    program: [
         {
-            type: String,
-            comment: 'Programas que o paciente está inserido.',
-        }
-    ]
+            id_program: mongoose.Schema.Types.ObjectId,
+        },
+    ],
 })
 
 module.exports = mongoose.model('patient', PatientSchema)

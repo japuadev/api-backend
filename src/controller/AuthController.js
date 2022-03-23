@@ -1,13 +1,13 @@
 const sanitize = require('mongo-sanitize')
 const jwt = require('../utils/jwt')
-const users = require('../models/users')
+const Users = require('../models/users')
 
 module.exports = {
     async login(req, res) {
         try {
             const body = req.body
             const filter = {email: sanitize(body.email), password: sanitize(body.password)}
-            const user = await users.findOne(filter)
+            const user = await Users.findOne(filter)
             if (user) {
                 const result = {
                     ...user._doc,
@@ -26,7 +26,7 @@ module.exports = {
             return res.status(500).json({
                 error: {
                     message: 'Erro ao fazer login.',
-                    error: message.error,
+                    error: error.message,
                 },
             })
         }

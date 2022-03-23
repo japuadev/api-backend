@@ -8,22 +8,22 @@ const Auth = require('./middlewares/auth')
 const routes = Router()
 
 //Rotas de Paciente
-routes.post('/patients', PatientController.create)
-routes.get('/patients/:id', PatientController.getById)
-routes.put('/patients/:id', PatientController.update)
-routes.delete('/patients/:id', PatientController.delete)
+routes.post('/patients', Auth.verifyJWT, PatientController.create)
+routes.get('/patients/:id', Auth.verifyJWT, PatientController.getById)
+routes.put('/patients/:id', Auth.verifyJWT, PatientController.update)
+routes.delete('/patients/:id', Auth.verifyJWT, PatientController.delete)
 
 //Rotas de Programa
-routes.post('/programs', ProgramController.create)
-routes.get('/programs/:id', ProgramController.getById)
-routes.put('/programs/:id', ProgramController.update)
-routes.delete('/programs/:id', ProgramController.delete)
+routes.post('/programs', Auth.verifyJWT, ProgramController.create)
+routes.get('/programs/:id', Auth.verifyJWT, ProgramController.getById)
+routes.put('/programs/:id', Auth.verifyJWT, ProgramController.update)
+routes.delete('/programs/:id', Auth.verifyJWT,ProgramController.delete)
 
 //Rotas de Usuários
-routes.post('/users', UsersController.create)
-routes.get('/users/:id', UsersController.getById)
-routes.put('/users/:id', UsersController.update)
-routes.delete('/users/:id', UsersController.delete)
+routes.post('/users', Auth.verifyJWT, UsersController.create)
+routes.get('/users/:id', Auth.verifyJWT, UsersController.getById)
+routes.put('/users/:id', Auth.verifyJWT, UsersController.update)
+routes.delete('/users/:id', Auth.verifyJWT, UsersController.delete)
 
 //Rotas de Autenticação
 routes.post('/login', AuthController.login)

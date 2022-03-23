@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 module.exports = {
     async verifyJWT(req, res, next) {
-        const token = req.headers['authorization']?.split(' ')[1]
+        const token = req.headers['authorization']
         if (!token)
             return res.status(401).json({
                 auth: false,
@@ -22,9 +22,8 @@ module.exports = {
                     },
                 })
 
-            const payload = decoded.payload
-
-            req.userId = payload._id
+            const idUser = decoded._id
+            req.body._id = idUser
             next()
         })
     },

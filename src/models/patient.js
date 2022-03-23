@@ -28,9 +28,10 @@ const PatientSchema = new mongoose.Schema({
     monthly_income: {
         type: String,
         enum: {
-            values: ['-1', '1', '2', '4+'],
+            values: ['-1', '1', '2', '4+', null],
             message: '{VALUE} não é suportado.',
         },
+        required: false,
         comment: 'Renda Mensal.',
     },
     physic_national: {

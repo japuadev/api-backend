@@ -1,7 +1,6 @@
 const Users = require('../models/users')
 const validator = require('email-validator')
 const {cpfIsValid, setEmptyToNull} = require('../utils/commons')
-const mongoose = require('mongoose')
 
 module.exports = {
     async create(req, res) {
